@@ -62,7 +62,7 @@ API.interceptors.request.use(
   (req) => {
     const token = localStorage.getItem("token");
 
-    console.log("TOKEN:", token); // 🔥 debug
+    console.log("TOKEN:", token); //  debug
 
     if (token) {
       req.headers.Authorization = `Bearer ${token}`;

@@ -9,19 +9,15 @@ import DeleteSuccess from "./pages/DeleteSuccess";
 import Recommend from "./pages/Recommend";
 import RecommendSuccess from "./pages/RecommendSuccess";
 import AddSuccess from "./pages/AddSuccess";
+import Watchlist from "./pages/Watchlist";
 import "./App.css";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-
-        {/*  Intro — landing page */}
         <Route path="/" element={<IntroPage />} />
-
-        {/*  Home — movies grid */}
-        <Route path="/home" element={<Home />} />  {/* ← THIS WAS MISSING */}
-
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/add" element={<AddMovie />} />
         <Route path="/edit/:id" element={<EditMovie />} />
@@ -30,7 +26,7 @@ function App() {
         <Route path="/recommend/:id" element={<Recommend />} />
         <Route path="/recommend-success" element={<RecommendSuccess />} />
         <Route path="/add-success" element={<AddSuccess />} />
-
+        <Route path="/watchlist" element={<Watchlist />} />
       </Routes>
     </BrowserRouter>
   );

@@ -4,7 +4,18 @@ import { useNavigate } from "react-router-dom";
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+  }
+
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    scroll-behavior: smooth;
+  }
 
   :root {
     --red: #e50914;
@@ -15,50 +26,80 @@ const styles = `
     --gold: #f5c518;
   }
 
-  html { scroll-behavior: smooth; }
-
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+  body { 
+    background: var(--bg); 
+    color: var(--text); 
+    font-family: 'DM Sans', sans-serif; 
+  }
 
   /* ═══ NAVBAR ═══ */
   .intro-nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    padding: 20px 60px;
+    padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: all 0.3s;
   }
 
+  @media (min-width: 768px) {
+    .intro-nav {
+      padding: 20px 60px;
+    }
+  }
+
   .intro-nav.scrolled {
     background: rgba(10,10,10,0.95);
     backdrop-filter: blur(20px);
-    padding: 14px 60px;
+    padding: 12px 20px;
     border-bottom: 1px solid #1a1a1a;
+  }
+
+  @media (min-width: 768px) {
+    .intro-nav.scrolled {
+      padding: 14px 60px;
+    }
   }
 
   .nav-logo {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 4px;
+    font-size: 22px;
+    letter-spacing: 3px;
     color: #fff;
+  }
+
+  @media (min-width: 768px) {
+    .nav-logo {
+      font-size: 28px;
+      letter-spacing: 4px;
+    }
   }
 
   .nav-logo span { color: var(--red); }
 
   .nav-btn {
-    padding: 10px 28px;
+    padding: 8px 20px;
     background: var(--red);
     color: #fff;
     border: none;
     border-radius: 50px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
-    letter-spacing: 2px;
+    font-size: 14px;
+    letter-spacing: 1.5px;
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: 0 4px 20px rgba(229,9,20,0.4);
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .nav-btn {
+      padding: 10px 28px;
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
   }
 
   .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(229,9,20,0.6); }
@@ -66,11 +107,12 @@ const styles = `
   /* ═══ HERO ═══ */
   .hero {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding: 80px 20px 60px;
   }
 
   .hero-video {
@@ -96,8 +138,14 @@ const styles = `
   .hero-overlay-bottom {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    height: 300px;
+    height: 150px;
     background: linear-gradient(to top, var(--bg), transparent);
+  }
+
+  @media (min-width: 768px) {
+    .hero-overlay-bottom {
+      height: 300px;
+    }
   }
 
   .hero-content {
@@ -105,106 +153,171 @@ const styles = `
     z-index: 2;
     text-align: center;
     max-width: 900px;
-    padding: 0 24px;
+    width: 100%;
   }
 
   .hero-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     background: rgba(229,9,20,0.12);
     border: 1px solid rgba(229,9,20,0.3);
     border-radius: 50px;
-    padding: 6px 20px;
-    font-size: 12px;
-    letter-spacing: 2px;
+    padding: 5px 16px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--red);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     animation: fadeDown 0.8s ease both;
+  }
+
+  @media (min-width: 768px) {
+    .hero-badge {
+      gap: 8px;
+      padding: 6px 20px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 32px;
+    }
   }
 
   .hero-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(64px, 12vw, 140px);
-    letter-spacing: 8px;
-    line-height: 0.9;
-    margin-bottom: 32px;
+    font-size: 42px;
+    letter-spacing: 4px;
+    line-height: 1.1;
+    margin-bottom: 20px;
     animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  @media (min-width: 480px) {
+    .hero-title {
+      font-size: 56px;
+      letter-spacing: 5px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-title {
+      font-size: clamp(64px, 10vw, 140px);
+      letter-spacing: 8px;
+      margin-bottom: 32px;
+    }
   }
 
   .hero-title .line2 { color: var(--red); display: block; }
 
   .hero-sub {
-    font-size: clamp(15px, 2vw, 20px);
+    font-size: 14px;
     color: #aaa;
-    line-height: 1.7;
+    line-height: 1.6;
     max-width: 600px;
-    margin: 0 auto 48px;
+    margin: 0 auto 32px;
     animation: fadeUp 0.8s 0.4s ease both;
     font-weight: 300;
+    padding: 0 10px;
+  }
+
+  @media (min-width: 768px) {
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 20px);
+      line-height: 1.7;
+      margin: 0 auto 48px;
+    }
   }
 
   .hero-buttons {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
     animation: fadeUp 0.8s 0.6s ease both;
   }
 
   .btn-enter {
-    padding: 16px 48px;
+    padding: 12px 28px;
     background: linear-gradient(135deg, #e50914, #ff2d20);
     color: #fff;
     border: none;
     border-radius: 50px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 3px;
+    font-size: 16px;
+    letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s;
     box-shadow: 0 8px 32px rgba(229,9,20,0.5);
   }
 
+  @media (min-width: 768px) {
+    .btn-enter {
+      padding: 16px 48px;
+      font-size: 20px;
+      letter-spacing: 3px;
+    }
+  }
+
   .btn-enter:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 16px 48px rgba(229,9,20,0.7); }
 
   .btn-outline {
-    padding: 16px 48px;
+    padding: 12px 28px;
     background: transparent;
     color: #fff;
     border: 1.5px solid #333;
     border-radius: 50px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 3px;
+    font-size: 16px;
+    letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s;
+  }
+
+  @media (min-width: 768px) {
+    .btn-outline {
+      padding: 16px 48px;
+      font-size: 20px;
+      letter-spacing: 3px;
+    }
   }
 
   .btn-outline:hover { border-color: #fff; transform: translateY(-3px); }
 
   .scroll-hint {
     position: absolute;
-    bottom: 40px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     color: #444;
-    font-size: 11px;
-    letter-spacing: 2px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     animation: bounce 2s infinite;
     z-index: 2;
   }
 
+  @media (min-width: 768px) {
+    .scroll-hint {
+      bottom: 40px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      gap: 8px;
+    }
+  }
+
   .scroll-line {
     width: 1px;
-    height: 60px;
+    height: 40px;
     background: linear-gradient(to bottom, var(--red), transparent);
+  }
+
+  @media (min-width: 768px) {
+    .scroll-line {
+      height: 60px;
+    }
   }
 
   @keyframes bounce {
@@ -224,90 +337,183 @@ const styles = `
 
   /* ═══ STATS SECTION ═══ */
   .stats-section {
-    padding: 80px 60px;
+    padding: 40px 20px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 2px;
     background: #111;
     border-top: 1px solid #1a1a1a;
     border-bottom: 1px solid #1a1a1a;
   }
 
+  @media (min-width: 640px) {
+    .stats-section {
+      grid-template-columns: repeat(4, 1fr);
+      padding: 60px 40px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .stats-section {
+      padding: 80px 60px;
+    }
+  }
+
   .stat-item {
     text-align: center;
-    padding: 40px 20px;
-    border-right: 1px solid #1a1a1a;
+    padding: 24px 12px;
+    border-right: none;
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.6s ease;
   }
 
-  .stat-item:last-child { border-right: none; }
+  @media (min-width: 640px) {
+    .stat-item {
+      border-right: 1px solid #1a1a1a;
+      padding: 40px 20px;
+    }
+    .stat-item:last-child { border-right: none; }
+  }
+
   .stat-item.visible { opacity: 1; transform: translateY(0); }
 
   .stat-number {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
+    font-size: 40px;
     letter-spacing: 2px;
     color: var(--red);
     line-height: 1;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
-  .stat-label { font-size: 12px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  @media (min-width: 768px) {
+    .stat-number {
+      font-size: 64px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .stat-label { 
+    font-size: 10px; 
+    color: var(--muted); 
+    letter-spacing: 1.5px; 
+    text-transform: uppercase; 
+  }
+
+  @media (min-width: 768px) {
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+  }
 
   /* ═══ FEATURES SECTION ═══ */
   .features-section {
-    padding: 120px 60px;
+    padding: 60px 20px;
     max-width: 1200px;
     margin: 0 auto;
   }
 
+  @media (min-width: 768px) {
+    .features-section {
+      padding: 120px 60px;
+    }
+  }
+
   .section-header {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
     opacity: 0;
     transform: translateY(40px);
     transition: all 0.8s ease;
   }
 
+  @media (min-width: 768px) {
+    .section-header {
+      margin-bottom: 80px;
+    }
+  }
+
   .section-header.visible { opacity: 1; transform: translateY(0); }
 
   .section-tag {
-    font-size: 11px;
-    letter-spacing: 4px;
+    font-size: 10px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--red);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     display: block;
+  }
+
+  @media (min-width: 768px) {
+    .section-tag {
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+    }
   }
 
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(40px, 6vw, 72px);
-    letter-spacing: 4px;
-    line-height: 1;
+    font-size: 32px;
+    letter-spacing: 3px;
+    line-height: 1.2;
     color: #fff;
+  }
+
+  @media (min-width: 480px) {
+    .section-title {
+      font-size: 40px;
+      letter-spacing: 3.5px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: clamp(40px, 6vw, 72px);
+      letter-spacing: 4px;
+    }
   }
 
   .section-title span { color: var(--red); }
 
   .features-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
   }
 
   .feature-card {
     background: #111;
     border: 1px solid #1a1a1a;
     border-radius: 20px;
-    padding: 40px 32px;
+    padding: 28px 20px;
     opacity: 0;
     transform: translateY(50px);
     transition: all 0.7s ease;
     position: relative;
     overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .feature-card {
+      padding: 40px 32px;
+    }
   }
 
   .feature-card::before {
@@ -325,47 +531,98 @@ const styles = `
   .feature-card.visible { opacity: 1; transform: translateY(0); }
 
   .feature-icon {
-    font-size: 48px;
-    margin-bottom: 20px;
+    font-size: 36px;
+    margin-bottom: 16px;
     display: block;
+  }
+
+  @media (min-width: 768px) {
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
   }
 
   .feature-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
-    letter-spacing: 2px;
+    font-size: 20px;
+    letter-spacing: 1.5px;
     color: #fff;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
-  .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.8; }
+  @media (min-width: 768px) {
+    .feature-title {
+      font-size: 24px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+  }
+
+  .feature-desc { 
+    font-size: 13px; 
+    color: var(--muted); 
+    line-height: 1.6; 
+  }
+
+  @media (min-width: 768px) {
+    .feature-desc {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+  }
 
   /* ═══ MOVIES SHOWCASE ═══ */
   .showcase-section {
-    padding: 120px 0;
+    padding: 60px 0;
     overflow: hidden;
     background: #0d0d0d;
   }
 
+  @media (min-width: 768px) {
+    .showcase-section {
+      padding: 120px 0;
+    }
+  }
+
   .showcase-header {
     text-align: center;
-    margin-bottom: 60px;
-    padding: 0 60px;
+    margin-bottom: 40px;
+    padding: 0 20px;
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s ease;
   }
 
+  @media (min-width: 768px) {
+    .showcase-header {
+      margin-bottom: 60px;
+      padding: 0 60px;
+    }
+  }
+
   .showcase-header.visible { opacity: 1; transform: translateY(0); }
 
   /* Infinite scroll strips */
-  .strip-wrap { overflow: hidden; margin-bottom: 20px; }
+  .strip-wrap { overflow: hidden; margin-bottom: 16px; }
+
+  @media (min-width: 768px) {
+    .strip-wrap {
+      margin-bottom: 20px;
+    }
+  }
 
   .strip {
     display: flex;
-    gap: 20px;
+    gap: 12px;
     animation: scrollLeft 30s linear infinite;
     width: max-content;
+  }
+
+  @media (min-width: 768px) {
+    .strip {
+      gap: 20px;
+    }
   }
 
   .strip.reverse { animation: scrollRight 35s linear infinite; }
@@ -381,13 +638,28 @@ const styles = `
   }
 
   .strip-poster {
-    width: 160px;
-    height: 240px;
-    border-radius: 12px;
+    width: 100px;
+    height: 150px;
+    border-radius: 10px;
     object-fit: cover;
     flex-shrink: 0;
     border: 1px solid #1a1a1a;
     transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  @media (min-width: 480px) {
+    .strip-poster {
+      width: 130px;
+      height: 195px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .strip-poster {
+      width: 160px;
+      height: 240px;
+      border-radius: 12px;
+    }
   }
 
   .strip-poster:hover {
@@ -399,46 +671,73 @@ const styles = `
 
   /* ═══ HOW IT WORKS ═══ */
   .how-section {
-    padding: 120px 60px;
+    padding: 60px 20px;
     max-width: 1000px;
     margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .how-section {
+      padding: 120px 60px;
+    }
   }
 
   .steps-list {
     display: flex;
     flex-direction: column;
     gap: 0;
-    margin-top: 80px;
+    margin-top: 40px;
+  }
+
+  @media (min-width: 768px) {
+    .steps-list {
+      margin-top: 80px;
+    }
   }
 
   .step-row {
     display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 32px;
+    grid-template-columns: 60px 1fr;
+    gap: 20px;
     align-items: start;
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translateX(-30px);
     transition: all 0.7s ease;
-    padding-bottom: 48px;
+    padding-bottom: 30px;
     position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .step-row {
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding-bottom: 48px;
+    }
   }
 
   .step-row::before {
     content: '';
     position: absolute;
-    left: 39px;
-    top: 60px;
+    left: 29px;
+    top: 50px;
     bottom: 0;
     width: 2px;
     background: linear-gradient(to bottom, var(--red), transparent);
+  }
+
+  @media (min-width: 768px) {
+    .step-row::before {
+      left: 39px;
+      top: 60px;
+    }
   }
 
   .step-row:last-child::before { display: none; }
   .step-row.visible { opacity: 1; transform: translateX(0); }
 
   .step-num-big {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: var(--red-dim);
     border: 2px solid var(--red);
@@ -446,30 +745,69 @@ const styles = `
     align-items: center;
     justify-content: center;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
+    font-size: 24px;
     color: var(--red);
     flex-shrink: 0;
     box-shadow: 0 0 30px rgba(229,9,20,0.2);
   }
 
-  .step-content { padding-top: 16px; }
+  @media (min-width: 768px) {
+    .step-num-big {
+      width: 80px;
+      height: 80px;
+      font-size: 32px;
+    }
+  }
+
+  .step-content { padding-top: 8px; }
+
+  @media (min-width: 768px) {
+    .step-content {
+      padding-top: 16px;
+    }
+  }
 
   .step-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 2px;
+    font-size: 20px;
+    letter-spacing: 1.5px;
     color: #fff;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
-  .step-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
+  @media (min-width: 768px) {
+    .step-title {
+      font-size: 28px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .step-desc { 
+    font-size: 13px; 
+    color: var(--muted); 
+    line-height: 1.6; 
+  }
+
+  @media (min-width: 768px) {
+    .step-desc {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+  }
 
   /* ═══ CTA SECTION ═══ */
   .cta-section {
-    padding: 160px 60px;
+    padding: 80px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .cta-section {
+      padding: 160px 60px;
+    }
   }
 
   .cta-bg {
@@ -482,43 +820,73 @@ const styles = `
 
   .cta-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 8vw, 100px);
-    letter-spacing: 6px;
-    line-height: 1;
-    margin-bottom: 24px;
+    font-size: 36px;
+    letter-spacing: 4px;
+    line-height: 1.2;
+    margin-bottom: 20px;
     opacity: 0;
     transform: translateY(40px);
     transition: all 0.8s ease;
+  }
+
+  @media (min-width: 480px) {
+    .cta-title {
+      font-size: 48px;
+      letter-spacing: 5px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cta-title {
+      font-size: clamp(48px, 8vw, 100px);
+      letter-spacing: 6px;
+      margin-bottom: 24px;
+    }
   }
 
   .cta-title.visible { opacity: 1; transform: translateY(0); }
   .cta-title span { color: var(--red); }
 
   .cta-sub {
-    font-size: 18px;
+    font-size: 14px;
     color: var(--muted);
-    margin-bottom: 48px;
+    margin-bottom: 32px;
     opacity: 0;
     transition: all 0.8s 0.2s ease;
+    padding: 0 10px;
+  }
+
+  @media (min-width: 768px) {
+    .cta-sub {
+      font-size: 18px;
+      margin-bottom: 48px;
+    }
   }
 
   .cta-sub.visible { opacity: 1; }
 
   .cta-btn {
-    padding: 20px 80px;
+    padding: 14px 40px;
     background: linear-gradient(135deg, #e50914, #ff2d20);
     color: #fff;
     border: none;
     border-radius: 50px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
-    letter-spacing: 4px;
+    font-size: 18px;
+    letter-spacing: 3px;
     cursor: pointer;
     transition: all 0.3s;
     box-shadow: 0 8px 40px rgba(229,9,20,0.5);
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.8s 0.4s ease, transform 0.8s 0.4s ease, box-shadow 0.3s, scale 0.3s;
+  }
+
+  @media (min-width: 768px) {
+    .cta-btn {
+      padding: 20px 80px;
+      font-size: 24px;
+      letter-spacing: 4px;
+    }
   }
 
   .cta-btn.visible { opacity: 1; transform: translateY(0); }
@@ -526,30 +894,45 @@ const styles = `
 
   /* ═══ FOOTER ═══ */
   .intro-footer {
-    padding: 40px 60px;
+    padding: 24px 20px;
     border-top: 1px solid #1a1a1a;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 12px;
     align-items: center;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .intro-footer {
+      padding: 40px 60px;
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+      gap: 0;
+    }
   }
 
   .footer-logo {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 3px;
+    font-size: 20px;
+    letter-spacing: 2.5px;
+  }
+
+  @media (min-width: 768px) {
+    .footer-logo {
+      font-size: 22px;
+      letter-spacing: 3px;
+    }
   }
 
   .footer-logo span { color: var(--red); }
-  .footer-text { font-size: 12px; color: var(--muted); }
+  .footer-text { font-size: 11px; color: var(--muted); }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .intro-nav { padding: 16px 24px; }
-    .intro-nav.scrolled { padding: 12px 24px; }
-    .stats-section { grid-template-columns: repeat(2, 1fr); }
-    .features-grid { grid-template-columns: 1fr; }
-    .features-section, .how-section, .cta-section { padding: 80px 24px; }
-    .intro-footer { flex-direction: column; gap: 12px; text-align: center; }
+  @media (min-width: 768px) {
+    .footer-text {
+      font-size: 12px;
+    }
   }
 `;
 
@@ -577,16 +960,16 @@ const POSTERS_ROW2 = [
 ];
 
 const FEATURES = [
-  { icon: "🎬", title: "Vast Movie Library", desc: "Browse hundreds of movies across every genre — from timeless classics to the latest blockbusters. Find your next favourite in seconds." },
-  { icon: "⭐", title: "Rate & Recommend", desc: "Share your thoughts with the community. Rate movies on a 10-star scale and write detailed reviews that help others decide what to watch." },
-  { icon: "🔐", title: "Secure Authentication", desc: "Login with Google in one click or register with OTP email verification. Your account and data are always protected with JWT security." },
-  { icon: "▶️", title: "Instant Trailers", desc: "Watch YouTube trailers directly inside the app without leaving the page. Get a feel for the movie before you commit to watching it." },
-  { icon: "🔍", title: "Smart Search", desc: "Search by title, genre, director or actor. Filter by genre chips to instantly narrow down exactly what you're in the mood for." },
-  { icon: "👑", title: "Admin Dashboard", desc: "Full CRUD control for administrators — add new movies, edit details, upload posters and manage the entire library with ease." },
+  { icon: "🎬", title: "Vast Movie Library", desc: "Browse hundreds of movies across every genre — from timeless classics to the latest blockbusters." },
+  { icon: "⭐", title: "Rate & Recommend", desc: "Share your thoughts with the community. Rate movies on a 10-star scale and write detailed reviews." },
+  { icon: "🔐", title: "Secure Authentication", desc: "Login with Google in one click or register with OTP email verification. Your data is always protected." },
+  { icon: "▶️", title: "Instant Trailers", desc: "Watch YouTube trailers directly inside the app without leaving the page." },
+  { icon: "🔍", title: "Smart Search", desc: "Search by title, genre, director or actor. Filter by genre chips to narrow down your choices." },
+  { icon: "👑", title: "Admin Dashboard", desc: "Full CRUD control for administrators — add, edit, and manage the entire library with ease." },
 ];
 
 const STEPS = [
-  { num: "01", title: "Create Your Account", desc: "Register with your email and OTP verification, or sign in instantly with your Google account. Takes less than 60 seconds." },
+  { num: "01", title: "Create Your Account", desc: "Register with your email and OTP verification, or sign in instantly with your Google account." },
   { num: "02", title: "Explore the Library", desc: "Browse our curated movie collection. Use search and genre filters to find exactly what you're looking for." },
   { num: "03", title: "Watch Trailers", desc: "Click any movie to see full details and watch the official trailer embedded right in the app." },
   { num: "04", title: "Share Your Thoughts", desc: "Rate movies and write reviews. Your recommendations help the entire community discover great films." },
@@ -660,7 +1043,6 @@ function IntroPage() {
 
       {/* ── HERO ── */}
       <section className="hero">
-        {/* Background video — cinema feel */}
         <video className="hero-video" autoPlay muted loop playsInline
           src="https://www.w3schools.com/html/mov_bbb.mp4" />
         <div className="hero-overlay" />
@@ -742,7 +1124,6 @@ function IntroPage() {
           </h2>
         </div>
 
-        {/* Row 1 — left to right */}
         <div className="strip-wrap">
           <div className="strip">
             {row1.map((src, i) => (
@@ -752,7 +1133,6 @@ function IntroPage() {
           </div>
         </div>
 
-        {/* Row 2 — right to left */}
         <div className="strip-wrap">
           <div className="strip reverse">
             {row2.map((src, i) => (

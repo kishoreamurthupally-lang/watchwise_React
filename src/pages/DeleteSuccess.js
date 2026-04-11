@@ -26,6 +26,7 @@ function DeleteSuccess() {
           width: 90%;
         }
 
+
         .success-box h2 {
           color: #4caf50;
           font-size: 32px;
@@ -34,12 +35,14 @@ function DeleteSuccess() {
           letter-spacing: 2px;
         }
 
+
         .success-box p {
           color: #888;
           margin-bottom: 40px;
           font-size: 15px;
           line-height: 1.5;
         }
+
 
         .btn-home {
           padding: 14px 32px;
@@ -61,16 +64,17 @@ function DeleteSuccess() {
         }
       `}</style>
 
+
       <div className="delete-success">
         <div className="success-box">
-          <h2>✅ MOVIE DELETED SUCCESSFULLY</h2>
+          <h2> MOVIE DELETED SUCCESSFULLY</h2>
           <p>The movie has been permanently removed from the database.</p>
           
           <button 
             className="btn-home"
-            onClick={() => navigate("/home")}   // ✅ Fixed: Now goes to real Home page
+            onClick={() => navigate("/home")}   //  Fixed: Now goes to real Home page
           >
-            🏠 GO BACK TO HOME
+             GO BACK TO HOME
           </button>
         </div>
       </div>
