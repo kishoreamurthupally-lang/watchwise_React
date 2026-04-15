@@ -50,31 +50,3 @@ export default API;
 
 
 
-
-
-{/*import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://localhost:9191/api"
-      baseURL: "https://watchwise-20us.onrender.com/api",
-
-});
-
-API.interceptors.request.use(
-  (req) => {
-    const token = localStorage.getItem("token");
-
-    console.log("TOKEN:", token); //  debug
-
-    if (token) {
-      req.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return req;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-export default API;8*/}
