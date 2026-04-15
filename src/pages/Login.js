@@ -1,3 +1,5 @@
+
+
 import { useState } from "react";
 import API from "../services/api";
 import { GoogleLogin } from "@react-oauth/google";
@@ -584,20 +586,38 @@ function Login() {
       setLoading(false);
     }
   };
-
-  // SEND OTP
+//SEND OTP
   const handleSendOtp = async () => {
-    if (!form.email) { setError("Please enter your email."); return; }
-    setLoading(true); reset();
-    try {
-      await API.post("/auth/send-otp", { email: form.email.toLowerCase().trim() });
-      setSuccess("OTP sent! Check your inbox 📧");
-      setRegStep(2);
-    } catch (err) {
-      setError(err.response?.data || "Failed to send OTP.");
-    }
-    setLoading(false);
-  };
+  if (!form.email) {
+    setError("Please enter your email.");
+    return;
+  }
+
+  // ✅ EMAIL VALIDATION
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(form.email)) {
+    setError("Enter valid email address ❌");
+    return;
+  }
+
+  setLoading(true);
+  reset();
+
+  try {
+    await API.post("/auth/send-otp", {
+      email: form.email.toLowerCase().trim()
+    });
+
+    setSuccess("OTP sent! Check your inbox 📧");
+    setRegStep(2);
+
+  } catch (err) {
+    console.log(err); // 🔥 debug
+    setError(err.response?.data || "Failed to send OTP.");
+  }
+
+  setLoading(false);
+};
 
   // VERIFY OTP
   const handleVerifyOtp = async () => {
