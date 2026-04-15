@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:9915/api",
+      baseURL: "https://watchwise-20us.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -56,6 +56,8 @@ export default API;
 
 const API = axios.create({
   baseURL: "http://localhost:9191/api"
+      baseURL: "https://watchwise-20us.onrender.com/api",
+
 });
 
 API.interceptors.request.use(
