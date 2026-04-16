@@ -725,12 +725,20 @@ function getIndustry(movie) {
   return "other";
 }
 
-const INDUSTRY_CONFIG = {
-  all: { label: "🌍 All", tab: "active-all" },
-  hollywood: { label: "🎬 Hollywood", tab: "active-hollywood", badge: "badge-hollywood", pill: "pill-hollywood", emoji: "🎬" },
-  bollywood: { label: "🎭 Bollywood", tab: "active-bollywood", badge: "badge-bollywood", pill: "pill-bollywood", emoji: "🎭" },
-  tollywood: { label: "🌟 Tollywood", tab: "active-tollywood", badge: "badge-tollywood", pill: "pill-tollywood", emoji: "🌟" },
-};
+function getIndustry(movie) {
+  const lang = (movie.language || "").toLowerCase().trim();
+
+  if (lang === "telugu" || lang === "tollywood") return "tollywood";
+  if (lang === "hindi" || lang === "bollywood") return "bollywood";
+
+  if (
+    lang === "english" || lang === "hollywood" ||
+    lang === "french" || lang === "spanish" ||
+    lang === "korean" || lang === "japanese"
+  ) return "hollywood";
+
+  return "other";
+}
 
 function SectionHeader({ type, count }) {
   const cfg = INDUSTRY_CONFIG[type];
