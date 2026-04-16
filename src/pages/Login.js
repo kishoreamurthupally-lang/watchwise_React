@@ -432,33 +432,17 @@ const styles = `
   }
 
   /* Google - FIXED POSITION */
-/* Google - PERFECT RESPONSIVE FIX */
-.google-wrap {
+/* Google - FIXED POSITION */
+.google-wrap { 
+  display: flex; 
+  justify-content: center; 
+  margin-bottom: 4px;
   width: 100%;
-  margin-top: 12px;
-  display: flex;
-  justify-content: center;
 }
 
-/* Force Google iframe full width */
-.google-wrap iframe {
+.google-wrap > div {
   width: 100% !important;
   max-width: 100% !important;
-  border-radius: 10px !important;
-}
-
-/* Fix container alignment */
-.google-wrap div {
-  width: 100% !important;
-  display: flex !important;
-  justify-content: center;
-}
-
-/* Mobile fix */
-@media (max-width: 480px) {
-  .google-wrap iframe {
-    height: 50px !important;
-  }
 }
 
   /* OTP input */
@@ -753,15 +737,16 @@ function Login() {
               <div className="or-divider">or continue with</div>
               
               {/* Google Login - Fixed Position */}
-            <div className="google-wrap">
+<div className="google-wrap">
   <GoogleLogin 
     onSuccess={handleGoogleSuccess}
     onError={() => setError("Google login failed.")}
     theme="filled_black" 
     shape="rectangular" 
-    size="large"
+    size="large" 
     width="100%"
     text="continue_with"
+    logo_alignment="center"
   />
 </div>
 
@@ -880,15 +865,16 @@ function Login() {
               <div className="or-divider">or continue with</div>
               
               {/* Google Login - Fixed Position */}
-            <div className="google-wrap">
+ <div className="google-wrap">
   <GoogleLogin 
     onSuccess={handleGoogleSuccess}
     onError={() => setError("Google login failed.")}
     theme="filled_black" 
     shape="rectangular" 
-    size="large"
+    size="large" 
     width="100%"
     text="continue_with"
+    logo_alignment="center"
   />
 </div>
               
