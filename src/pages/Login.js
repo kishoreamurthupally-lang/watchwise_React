@@ -587,30 +587,32 @@ function Login() {
     }
   };
 //SEND OTP
-const handleSendOtp = async () => {
+ const handleSendOtp = async () => {
   if (!form.email) {
     setError("Please enter your email.");
     return;
   }
 
-  const email = form.email.toLowerCase().trim();
+  // ✅ EMAIL VALIDATION
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(form.email)) {
+    setError("Enter valid email address ❌");
+    return;
+  }
 
   setLoading(true);
   reset();
 
   try {
-    await API.post("/auth/send-otp", { email });
+    await API.post("/auth/send-otp", {
+      email: form.email.toLowerCase().trim()
+    });
 
     setSuccess("OTP sent! Check your inbox 📧");
-
-    // 🔥 FIX HERE
-    if (email === "admin@gmail.com") {
-      setRegStep(3); // skip OTP step
-    } else {
-      setRegStep(2);
-    }
+    setRegStep(2);
 
   } catch (err) {
+    console.log(err); // 🔥 debug
     setError(err.response?.data || "Failed to send OTP.");
   }
 
