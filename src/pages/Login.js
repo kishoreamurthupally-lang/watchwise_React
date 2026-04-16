@@ -432,17 +432,34 @@ const styles = `
   }
 
   /* Google - FIXED POSITION */
-  .google-wrap { 
-    display: flex; 
-    justify-content: center; 
-    margin-bottom: 4px;
-    width: 100%;
-  }
+/* Google - PERFECT RESPONSIVE FIX */
+.google-wrap {
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
 
-  .google-wrap > div {
-    width: 100% !important;
-    max-width: 100% !important;
+/* Force Google iframe full width */
+.google-wrap iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: 10px !important;
+}
+
+/* Fix container alignment */
+.google-wrap div {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center;
+}
+
+/* Mobile fix */
+@media (max-width: 480px) {
+  .google-wrap iframe {
+    height: 50px !important;
   }
+}
 
   /* OTP input */
   .otp-field input {
@@ -736,18 +753,17 @@ function Login() {
               <div className="or-divider">or continue with</div>
               
               {/* Google Login - Fixed Position */}
-              <div className="google-wrap">
-                <GoogleLogin 
-                  onSuccess={handleGoogleSuccess}
-                  onError={() => setError("Google login failed.")}
-                  theme="filled_black" 
-                  shape="rectangular" 
-                  size="large" 
-                  width="100%"
-                  text="continue_with"
-                  logo_alignment="center"
-                />
-              </div>
+            <div className="google-wrap">
+  <GoogleLogin 
+    onSuccess={handleGoogleSuccess}
+    onError={() => setError("Google login failed.")}
+    theme="filled_black" 
+    shape="rectangular" 
+    size="large"
+    width="100%"
+    text="continue_with"
+  />
+</div>
 
               <div className="switch-text">
                 New here? <span onClick={() => switchTab("register")}>Create an account</span>
@@ -864,18 +880,17 @@ function Login() {
               <div className="or-divider">or continue with</div>
               
               {/* Google Login - Fixed Position */}
-              <div className="google-wrap">
-                <GoogleLogin 
-                  onSuccess={handleGoogleSuccess}
-                  onError={() => setError("Google login failed.")}
-                  theme="filled_black" 
-                  shape="rectangular" 
-                  size="large" 
-                  width="100%"
-                  text="continue_with"
-                  logo_alignment="center"
-                />
-              </div>
+            <div className="google-wrap">
+  <GoogleLogin 
+    onSuccess={handleGoogleSuccess}
+    onError={() => setError("Google login failed.")}
+    theme="filled_black" 
+    shape="rectangular" 
+    size="large"
+    width="100%"
+    text="continue_with"
+  />
+</div>
               
               <div className="switch-text">
                 Already have an account? <span onClick={() => switchTab("login")}>Sign in</span>
