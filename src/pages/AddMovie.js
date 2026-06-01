@@ -78,7 +78,7 @@ function AddMovie() {
            <option value="Thriller">Thriller</option>
 
             <option value="Sci-Fi">Sci-Fi</option>
-              <option value="Comedy">Horror</option>
+              <option value="Comedy">Comedy</option>
 
             <option value="Horror">Horror</option>
           </select>
