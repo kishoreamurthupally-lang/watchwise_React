@@ -20,7 +20,7 @@ function AddMovie() {
     leadActress: "",
     description: "",
     awards: "",
-    posterUrl: "", // This will be set automatically
+    posterUrl: "", 
     trailerUrl: ""
   });
 
