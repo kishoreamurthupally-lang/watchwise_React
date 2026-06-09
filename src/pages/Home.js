@@ -714,29 +714,22 @@ const styles = `
 
 const GENRES = ["All", "Action", "Sci-Fi", "Romance", "Drama", "Thriller", "Comedy", "Horror"];
 
+const INDUSTRY_CONFIG = {
+  all:       { label: "🌍 All",       emoji: "🌍", badge: "",                pill: ""               },
+  hollywood: { label: "🎬 Hollywood", emoji: "🎬", badge: "badge-hollywood", pill: "pill-hollywood"  },
+  bollywood: { label: "🎭 Bollywood", emoji: "🎭", badge: "badge-bollywood", pill: "pill-bollywood"  },
+  tollywood: { label: "🌟 Tollywood", emoji: "🌟", badge: "badge-tollywood", pill: "pill-tollywood"  },
+};
+
 function getIndustry(movie) {
   const lang = (movie.language || "").toLowerCase().trim();
   if (lang === "telugu" || lang === "tollywood") return "tollywood";
   if (lang === "hindi" || lang === "bollywood") return "bollywood";
-  if (
-    lang === "english" || lang === "hollywood" || lang === "french" ||
-    lang === "spanish" || lang === "korean" || lang === "japanese"
-  ) return "hollywood";
-  return "other";
-}
-
-function getIndustry(movie) {
-  const lang = (movie.language || "").toLowerCase().trim();
-
-  if (lang === "telugu" || lang === "tollywood") return "tollywood";
-  if (lang === "hindi" || lang === "bollywood") return "bollywood";
-
   if (
     lang === "english" || lang === "hollywood" ||
     lang === "french" || lang === "spanish" ||
     lang === "korean" || lang === "japanese"
   ) return "hollywood";
-
   return "other";
 }
 
@@ -909,7 +902,7 @@ function Home() {
     const genreMatch = m.genre?.toLowerCase().includes(search.toLowerCase());
     const directorMatch = m.directorName?.toLowerCase().includes(search.toLowerCase());
     const matchSearch = !search || titleMatch || genreMatch || directorMatch;
-    const matchGenre = activeGenre === "All" || m.genre?.trim() === activeGenre;
+    const matchGenre = activeGenre === "All" || m.genre?.split("/").map(g => g.trim()).includes(activeGenre);
     return matchSearch && matchGenre;
   });
 
