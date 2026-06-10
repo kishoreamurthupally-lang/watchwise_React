@@ -1,7 +1,6 @@
 import { useState } from "react";
 import API from "../services/api";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import { useGoogleLogin } from "@react-oauth/google";
 import emailjs from '@emailjs/browser';
 
 emailjs.init("WepDjn1WVOee56W43");
@@ -54,7 +53,6 @@ const styles = `
     50% { transform:translate(15px,-15px) scale(1.03); }
   }
 
-  /* ✅ Card — fully responsive */
   .login-card {
     background: rgba(17,17,17,0.97);
     border: 1px solid #1c1c1c;
@@ -78,7 +76,6 @@ const styles = `
     to   { opacity:1; transform:translateY(0); }
   }
 
-  /* Logo */
   .login-logo { text-align:center; margin-bottom:24px; }
   .logo-icon { font-size:36px; display:block; margin-bottom:6px; animation:popIn 0.5s 0.2s ease both; }
   @media (min-width: 480px) { .logo-icon { font-size:42px; } }
@@ -101,7 +98,6 @@ const styles = `
   .login-sub { color:var(--muted); font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
   @media (min-width: 768px) { .login-sub { font-size:11px; letter-spacing:3px; } }
 
-  /* Tabs */
   .tabs {
     display:flex; background:var(--surface2);
     border-radius:10px; padding:4px; margin-bottom:20px;
@@ -121,7 +117,6 @@ const styles = `
 
   .tab.active { background:var(--red); color:#fff; box-shadow:0 4px 15px rgba(229,9,20,0.4); }
 
-  /* Fields */
   .field { margin-bottom:14px; }
   @media (min-width: 768px) { .field { margin-bottom:18px; } }
 
@@ -152,7 +147,6 @@ const styles = `
   .toggle-pw { position:absolute; right:12px; background:none; border:none; color:var(--muted); cursor:pointer; font-size:15px; padding:0; }
   @media (min-width: 480px) { .toggle-pw { right:15px; font-size:16px; } }
 
-  /* Messages */
   .error-msg {
     background:rgba(229,9,20,0.08);
     border:1px solid rgba(229,9,20,0.25);
@@ -178,7 +172,6 @@ const styles = `
     75%{transform:translateX(6px);}
   }
 
-  /* Steps */
   .steps { display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:18px; }
   .step { display:flex; align-items:center; gap:4px; font-size:10px; color:var(--muted); font-weight:500; }
   @media (min-width: 400px) { .step { font-size:11px; gap:5px; } }
@@ -198,7 +191,6 @@ const styles = `
   .step-line { width:20px; height:1.5px; background:var(--border); border-radius:2px; }
   @media (min-width: 400px) { .step-line { width:24px; } }
 
-  /* Main Button */
   .btn-main {
     width:100%; padding:12px;
     background:linear-gradient(135deg, #e50914, #ff2020);
@@ -215,7 +207,6 @@ const styles = `
   .btn-main:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 28px rgba(229,9,20,0.5); }
   .btn-main:disabled { opacity:0.5; cursor:not-allowed; box-shadow:none; }
 
-  /* Divider */
   .or-divider {
     display:flex; align-items:center; gap:10px;
     margin:16px 0; color:#2a2a2a;
@@ -227,7 +218,6 @@ const styles = `
     background:linear-gradient(to right, transparent, var(--border), transparent);
   }
 
-  /* ✅ GOOGLE BUTTON — SIMPLE CUSTOM BUTTON */
   .google-btn-custom {
     width: 100%;
     display: flex;
@@ -256,31 +246,17 @@ const styles = `
     .google-btn-custom { padding: 13px 16px; border-radius: 12px; }
   }
 
-  .google-btn-custom:hover {
+  .google-btn-custom:hover:not(:disabled) {
     background: #f5f5f5;
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     transform: translateY(-1px);
   }
 
+  .google-btn-custom:disabled { opacity: 0.6; cursor: not-allowed; }
   .google-btn-custom:active { transform: translateY(0); }
 
-  .google-logo {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-  }
+  .google-logo { width: 20px; height: 20px; flex-shrink: 0; }
 
-  /* Hidden original Google button */
-  .google-hidden {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
-
-  /* OTP */
   .otp-field input {
     text-align:center !important; font-size:20px !important;
     font-family:'Bebas Neue',sans-serif !important;
@@ -327,7 +303,6 @@ const getStrength = pw => {
   return { w:"100%", c:"#4caf50", l:"Strong 💪" };
 };
 
-// ✅ Google SVG Logo
 const GoogleLogo = () => (
   <svg className="google-logo" viewBox="0 0 24 24">
     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -434,61 +409,52 @@ function Login() {
     setLoading(false);
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    setGoogleLoading(true);
-    try {
-      const decoded = jwtDecode(credentialResponse.credential);
-      const res = await API.post("/auth/google-login", {
-        email: decoded.email,
-        username: decoded.name
-      });
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.role);
-      localStorage.setItem("email", decoded.email);
-      localStorage.setItem("username", decoded.name);
-      sendEmailJS(decoded.name, decoded.email);
-      window.location = "/home";
-    } catch {
+  // ✅ FIX: useGoogleLogin hook — triggers Google popup directly from your button
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setGoogleLoading(true);
+      try {
+        // Fetch user info from Google using the access token
+        const userInfoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+        });
+        const userInfo = await userInfoRes.json();
+
+        const res = await API.post("/auth/google-login", {
+          email: userInfo.email,
+          username: userInfo.name
+        });
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", res.data.role);
+        localStorage.setItem("email", userInfo.email);
+        localStorage.setItem("username", userInfo.name);
+        sendEmailJS(userInfo.name, userInfo.email);
+        window.location = "/home";
+      } catch {
+        setError("Google login failed. Please try again.");
+        setGoogleLoading(false);
+      }
+    },
+    onError: () => {
       setError("Google login failed. Please try again.");
       setGoogleLoading(false);
     }
-  };
+  });
 
-  // ✅ Custom Google Button — triggers hidden GoogleLogin
   const GoogleSection = () => (
     <>
       <div className="or-divider">or continue with</div>
-
-      {/* Custom styled button */}
       <button
         className="google-btn-custom"
-        onClick={() => {
-          // Click the hidden GoogleLogin button
-          const btn = document.querySelector('.google-hidden iframe');
-          if (btn) btn.click();
-          // Fallback — find any Google button
-          const googleBtn = document.querySelector('[data-testid="google-login-button"]');
-          if (googleBtn) googleBtn.click();
-        }}
+        onClick={() => googleLogin()}
         disabled={googleLoading}
       >
         {googleLoading ? (
-          <><div className="spinner" style={{borderTopColor:"#333"}} /> Signing in...</>
+          <><div className="spinner" style={{borderTopColor:"#333", borderColor:"rgba(0,0,0,0.15)"}} /> Signing in...</>
         ) : (
           <><GoogleLogo /> Continue with Google</>
         )}
       </button>
-
-      {/* Hidden real GoogleLogin — handles auth */}
-      <div className="google-hidden">
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={() => setError("Google login failed.")}
-          theme="filled_black"
-          shape="rectangular"
-          size="large"
-        />
-      </div>
     </>
   );
 
@@ -500,14 +466,12 @@ function Login() {
         <div className="bg-blob blob-2" />
 
         <div className="login-card">
-          {/* Logo */}
           <div className="login-logo">
             <span className="logo-icon">🎬</span>
             <div className="login-title">WATCH<span>WISE</span></div>
             <div className="login-sub">Your Movie Universe</div>
           </div>
 
-          {/* Tabs */}
           <div className="tabs">
             <button className={`tab ${tab==="login"?"active":""}`}
               onClick={() => switchTab("login")}>🔓 Sign In</button>
@@ -518,7 +482,6 @@ function Login() {
           {error && <div className="error-msg">❌ {error}</div>}
           {success && <div className="success-msg">✓ {success}</div>}
 
-          {/* LOGIN */}
           {tab === "login" && (
             <>
               <div className="field">
@@ -553,7 +516,6 @@ function Login() {
             </>
           )}
 
-          {/* REGISTER */}
           {tab === "register" && (
             <>
               <div className="steps">
